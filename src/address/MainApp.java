@@ -1,4 +1,4 @@
-package sample;
+package address;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -11,28 +11,31 @@ import java.io.IOException;
 
 public class MainApp extends Application {
 
-    private Stage primaryStage;
-    private BorderPane rootLayout;
-
     public static void main(String[] args) {
-
         launch(args);
     }
+
+    private Stage primaryStage;
+    private BorderPane rootLayout;
 
     @Override
     public void start(Stage primaryStage) {
         this.primaryStage = primaryStage;
         this.primaryStage.setTitle("AddressApp");
+
         initRootLayout();
         showPersonOverview();
     }
 
+    // Initialization of root layout.
     public void initRootLayout(){
         try{
+            // Loading of root layout from fxml file.
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainApp.class.getResource("src/sample/RootLayout"));
+            loader.setLocation(MainApp.class.getResource("view/RootLayout.fxml"));
             rootLayout = (BorderPane) loader.load();
 
+            // Display scene, which contain root layout.
             Scene scene = new Scene(rootLayout);
             primaryStage.setScene(scene);
             primaryStage.show();
@@ -42,19 +45,23 @@ public class MainApp extends Application {
         }
     }
 
+    // Show information about addresses in root layout.
     public void showPersonOverview(){
         try{
+            // Load information about addresses.
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(MainApp.class.getResource("view/PersonOverview.fxml"));
-            AnchorPane personIverview = (AnchorPane) loader.load();
+            AnchorPane personOverview = (AnchorPane) loader.load();
 
-            rootLayout.setCenter(personIverview);
+            // Put information about addresses in the centre of root layout.
+            rootLayout.setCenter(personOverview);
         }
         catch (IOException e){
             e.printStackTrace();
         }
     }
 
+    // Return main scene.
     public Stage getPrimaryStage(){
         return primaryStage;
     }
